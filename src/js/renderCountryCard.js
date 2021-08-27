@@ -8,7 +8,7 @@ import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
 
 const inputEl = document.querySelector('.input-js');
-const cardContainer = document.querySelector('.coutries-list-js');
+const cardContainer = document.querySelector('.countries-list-js');
 let countryToSearch = '';
 
 inputEl.addEventListener(
