@@ -1,3 +1,2 @@
-import './sass/main.scss';
-
 import './js/renderCountryCard';
+import './sass/main.scss';

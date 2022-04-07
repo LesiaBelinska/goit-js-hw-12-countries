@@ -1,33 +1,33 @@
 import debounce from 'lodash.debounce';
 import API from './fetchCountries.js';
-
 import templateCountry from '../templates/templateCountry.hbs';
 import templateListOfCountries from '../templates/templateListOfCountries.hbs';
+
 import { info, error } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
 
-const inputEl = document.querySelector('.input-js');
-const cardContainer = document.querySelector('.countries-list-js');
-let countryToSearch = '';
+const refs = {
+    input: document.querySelector('.input-js'),
+    cardContainer: document.querySelector('.countries-list-js'),
+}
 
-inputEl.addEventListener(
-  'input',
+let searchCountry = '';
+
+refs.input.addEventListener('input',
   debounce(() => {
     onSearch();
-  }, 500),
-);
+  }, 500));
 
 function onSearch() {
-  countryToSearch = inputEl.value;
-  console.log(countryToSearch);
+  searchCountry = refs.input.value;
 
-  if (!countryToSearch) {
+  if (!searchCountry) {
     clearMarkup();
     return;
   }
 
-  API.fetchCountries(countryToSearch)
+  API.fetchCountries(searchCountry)
     .then(checkingNumberOfCountries)
     .catch(onFetchError);
 }
@@ -50,11 +50,11 @@ function checkingNumberOfCountries(countries) {
 
 function renderMarkup(template, countries) {
   const markup = template(countries);
-  cardContainer.insertAdjacentHTML('beforeend', markup);
+  refs.cardContainer.insertAdjacentHTML('beforeend', markup);
 }
 
 function clearMarkup() {
-  cardContainer.innerHTML = '';
+  refs.cardContainer.innerHTML = '';
 }
 
 function noResult() {
@@ -78,3 +78,4 @@ function onFetchError(error) {
 
     console.log(error);
 }
+
